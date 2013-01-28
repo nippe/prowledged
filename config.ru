@@ -1,2 +1,2 @@
-require './cosm-prowly'
+require './'
 run Sinatra::Application
