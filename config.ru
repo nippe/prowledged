@@ -1,2 +1,2 @@
-require './'
+require './loggered'
 run Sinatra::Application
