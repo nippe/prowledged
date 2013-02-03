@@ -12,7 +12,7 @@ post '/:api_key/notification/send' do
 
   Prowly.notify do |n|
     n.apikey = params[:api_key]
-    n.priority = Prowly::Notification::Priority::HIGH
+    n.priority = Prowly::Notification::Priority::EMERGENCY
     n.application = "Cosm"
     n.event = params[:event]
     n.event = "#{params[:datastream]} is #{params[:value]}"
