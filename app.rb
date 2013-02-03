@@ -1,17 +1,17 @@
 require 'rubygems'
 require 'sinatra'
 require 'prowly'
-
+require 'json'
 
 get '/' do
   'Hey hey'
 end
 
-get '/:api_key/notification/send' do
-  key = params[:api_key]
+post '/:api_key/notification/send' do
+  content_type :json
 
   Prowly.notify do |n|
-    n.apikey = key
+    n.apikey = params[:api_key]
     n.priority = Prowly::Notification::Priority::MODERATE
     n.application = "Cosm"
     n.event = params[:event]
@@ -19,6 +19,9 @@ get '/:api_key/notification/send' do
     n.description = params[:description]
     n.url = 'http://cosm.com/feeds/100109'
   end
+
+  status 200
+  {:status => 'OK', :status_description => "Message Sent"}.to_json
 end
 
 
