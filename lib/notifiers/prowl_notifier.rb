@@ -11,13 +11,16 @@ class ProwlNotifier
     end
   end
 
-  def send_notification(indata)
+  def send_notification(indata, event_description)
     Prowly.notify do |n|
       n.apikey = indata[:api_key]
       n.priority = get_severity(indata[:priority])
       n.application = "Cosm"
-      n.event = indata[:event]
-      n.event = "#{indata[:datastream]} is #{indata[:value]}"
+      if event_description.nil?
+        n.event="#{indata[:datastream]} is #{indata[:event]} at #{indata[:value]}"
+      else
+        n.event = event_description
+      end
       n.description = indata[:description]
       n.url = 'http://cosm.com/feeds/100109'
     end
